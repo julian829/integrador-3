@@ -3,45 +3,31 @@ package com.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.model.Usuario;
 import com.service.UsuarioService;
 
 @RestController
-@RequestMapping("/usuario")
-@CrossOrigin(origins = "*")
+@RequestMapping("/usuarios")
+@CrossOrigin("*")
 public class UsuarioController {
 
     @Autowired
-    private UsuarioService usuarioService;
+    private UsuarioService service;
 
     @GetMapping
-    public List<Usuario> listarUsuarios() {
-
-        return usuarioService.listarUsuarios();
+    public List<Usuario> listar() {
+        return service.listar();
     }
 
-    
     @PostMapping
-    public Usuario guardarUsuario(@RequestBody Usuario usuario) {
-
-        return usuarioService.guardarUsuario(usuario);
-    }
-
-    
-    @DeleteMapping("/{id}")
-    public void eliminarUsuario(@PathVariable Long id) {
-
-        usuarioService.eliminarUsuario(id);
-    }
-
-    // PUT
-    @PutMapping("/{id}")
-    public Usuario actualizarUsuario(
-            @PathVariable Long id,
-            @RequestBody Usuario usuario) {
-
-        return usuarioService.actualizarUsuario(id, usuario);
+    public Usuario guardar(@RequestBody Usuario usuario) {
+        return service.guardar(usuario);
     }
 }

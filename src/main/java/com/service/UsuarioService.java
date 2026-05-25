@@ -12,38 +12,21 @@ import com.repository.UsuarioRepository;
 public class UsuarioService {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioRepository repository;
 
-    // LISTAR
-    public List<Usuario> listarUsuarios() {
-
-        return usuarioRepository.findAll();
+    public List<Usuario> listar() {
+        return repository.findAll();
     }
 
-    // GUARDAR
-    public Usuario guardarUsuario(Usuario usuario) {
-
-        return usuarioRepository.save(usuario);
+    public Usuario guardar(Usuario usuario) {
+        return repository.save(usuario);
     }
 
-    // ELIMINAR
-    public void eliminarUsuario(Long id) {
-
-        usuarioRepository.deleteById(id);
+    public Usuario buscarPorId(Long id) {
+        return repository.findById(id).orElse(null);
     }
 
-    // ACTUALIZAR
-    public Usuario actualizarUsuario(Long id, Usuario usuarioActualizado) {
-
-        Usuario usuario = usuarioRepository.findById(id).orElse(null);
-
-        if (usuario != null) {
-
-            usuario.setNombre(usuarioActualizado.getNombre());
-
-            return usuarioRepository.save(usuario);
-        }
-
-        return null;
+    public void eliminar(Long id) {
+        repository.deleteById(id);
     }
 }
